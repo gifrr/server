@@ -1,4 +1,5 @@
 const Gif = require('../model/gif')
+const Tag = require('../model/tag')
 
 class Controller {
     static findAll(req, res) {
@@ -11,7 +12,7 @@ class Controller {
                 res.status(500).json(err)
             })
     }
-    
+
     static update(req, res) {
         Gif
             .findByIdAndUpdate(req.params.id, { ...req.body })
