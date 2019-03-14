@@ -11,6 +11,7 @@ class Controller {
                 res.status(500).json(err)
             })
     }
+    
     static update(req, res) {
         Gif
             .findByIdAndUpdate(req.params.id, { ...req.body })
@@ -21,6 +22,7 @@ class Controller {
                 res.status(500).json(err)
             })
     }
+
     static delete(req, res) {
         Gif
             .findByIdAndDelete(req.params.id)
@@ -32,7 +34,88 @@ class Controller {
             })
     }
 
-}
+    static generateTags(req, res) {
+        autoGenerateTags(req.file.cloudStoragePublicUrl)
+        .then(labels => {
+            res 
+                .status(200)
+                .json({
+                    labels,
+                    image: req.file.cloudStoragePublicUrl
+                })
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .json({
+                    msg: `Internal server error`,
+                    err: err
+                }) 
+        })        
+    }
 
+    static create(req, res) {
+        let data = req.body
+        let promises = []
+        let readyToPutTag = []
+        data.tags = data.tags.map(e => e.text)
+        data.tags.forEach(tag => {
+            promises.push(
+                Tag.findOne({
+                    name: tag
+                })
+            )
+        })
+        Promise.all(promises)
+        .then(tags => {
+            readyToPutTag = tags.filter(e => e !== null)
+            if (readyToPutTag.length > 0) {
+                readyToPutTag.forEach(tg => {
+                    let index = data.tags.findIndex(e => e === tg.name)
+                    data.tags.splice(index, 1)
+                })
+            }
+            readyToPutTag = readyToPutTag.map(e => e._id)
+            let creatingTag = []
+            data.tags.forEach(tag => {
+                creatingTag.push(
+                    Tag.create({
+                        name: tag
+                    })
+                )
+            })
+            return Promise.all(creatingTag)
+        })
+        .then(createdTags => {
+            let createArticle = {
+                title: data.title,
+                content: data.content,
+                author: req.decoded.id,
+                tags: createdTags,
+                image: data.image
+            }
+
+            createArticle.tags = createArticle.tags.map(e => e._id).concat(readyToPutTag)
+            Article.create(createArticle)
+            .then(newArticle => {
+                res
+                    .status(200)
+                    .json({
+                        msg: 'Article has been successfully created',
+                        newArticle
+                    })                
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            res
+                .status(500)
+                .json({
+                    msg: `internal server error`,
+                    err: err
+                })
+        })
+    }
+}
 
 module.exports = Controller

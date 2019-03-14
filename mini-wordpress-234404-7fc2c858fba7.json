@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "mini-wordpress-234404",
+  "private_key_id": "7fc2c858fba7972dc9d9d6a83b2cacd182fdb546",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDONNZNwroxOLge\nkKM03q/hkKHgSjpfxcwMdyFtYCAUy7C+Kk/yReXwp020NPt9pRYQR4X+02rK5Fc+\nxXTf5bRTtj+02Ux+KnFR0RzcBlW0IhnM+E5ANmoUSER/SZsEBJEXT0NX1WLeKJFB\naXQqKTqZF7oWKKfLonH/vYxE+BKgNWIh9ny9sGixw5GghQCU9tz5AKX07c+yxjao\nvijnjH39vc5CMHI7HhGeOgxPixafz3J0uZ6ZSNpEFe4vMXRNKQxu8x1Y5NiKCXWE\nZG6GeHt8Q3o6Eja5bh1fXgmep3AvdY21ov2JIbZeI0SnUrkKRHNUjdU3dt1pH1XM\nAxD799AzAgMBAAECggEAIR+0sx4OKbz6OpKyXNpOt3WzwyM5WEweOHxkhrzTunNz\n60BBwmG/C5bccQ+3vFmp/yh2Glacx4XBjAhM+3BbNL1IY4Uqd/PaazGjqKZt2vdF\nXLsgWslC5gor0qSgvZb8NZnacAALlzM+Dhth+SnRS2lXz5ptRdVM6a9pmmSdHVXc\nIZMEO9y8EbHl9w//FO7bbqkLDp0MAUV092q3PS1yGvqb9SUVaM0nJRrj7QsrSkS5\nW7SwDVz2llMGIlq+vSvQJU9qnfCfwb1mTJKuz7KfY5iRbLAO5nqlALnr5f5u5ChR\nMVKpaITCcE1j50P3/TK9Dl8/l3RGYZBZBRH89BfuDQKBgQDn92hG7So99IN2cVdP\nZWGApcLEs8IQi9fCcwndR7SJGEk+AoptFit2kLDcSYfSQIrGHi57SFnpUx6Hj24I\nBEbb5dyUK/Caeq5jKO9Jo4HK5wZLnDTQyZshzdfBatrXoOxbMmI6klS+5A1JoBN+\nan4g9+RaD9lihvw8bPLJQqscvwKBgQDjki4QfZEGuiN7Gs0yncEZOKOkcgitpeet\nAX2dP3UmEVGGGiZ5h5CYo6Ii5+r3TNLBggioSzsH9nWbxbza5NEWO77WX87J/zrH\nBeXSKYJ2mvRgLmH8ZiOCfvXMSJtR3UIMc+mN4yLU/lbnFZjnpklDlicd+my9dK31\n96d7/ebFjQKBgDVAWcL2jRz99fQJ3vZOGs0SwJyxe5qaz+RGznvrCynx1laS9L5I\nOaAVZVSc2L5OrM0AfsE0gdeLilWqeqMCgFXY9gNZ9vkvsrr22b/49kHjOVHAQWuw\n7JkdDSvM4QJhYgEplt1FXIkaB2bghbker2fYIKcAPnJc9KjWhgHn+So3AoGAewKM\nNcu59dntzeBJ5L9THm/4PK6LNFoGZgT1QmeHymD4ITXHcE+wAGILBTU5VB3JmmHQ\nji/EI+S748y57dRblNoMqNI29AcrXWM5vCVF6RiPWeIYgxcuwJ4h/R+OHW0tA5Aw\nQcryDBHDJbwN38GJvqfOUy0HVE1arycD+EjhUg0CgYBqvKTgT4vKSX6iLFyqXY8M\nAC8txgNlCu7fOWg8THjgIVfcXA0ly2zaWcEr52xT9Js+A9+0yPmUWPp4ARBECTWA\n4AutUyi/6Zj+I87SLoQ3AoAgYHBpN10dZjew4X+VKYar9X50d133NIXZt+bmOSkZ\nWw4zvlnHh3AoKzfer5LvoQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "felixgoh@mini-wordpress-234404.iam.gserviceaccount.com",
+  "client_id": "100481632566391176342",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/felixgoh%40mini-wordpress-234404.iam.gserviceaccount.com"
+}
