@@ -1,23 +1,21 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-const mongodb = require('mongodb')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost:27017')
-
-var gifSchema = new Schema({
-    title: String,
+const gifSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
     tags: [{
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Tag'
     }],
-    gif: String
+    gif: {
+        type: String,
+        required: true
+    }
 });
 
-
-
-
-
-let Gif = mongoose.model('Gifs', gifSchema)
-
+const Gif = mongoose.model('Gif', gifSchema)
 
 module.exports = Gif
