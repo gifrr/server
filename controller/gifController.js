@@ -88,22 +88,21 @@ class Controller {
             return Promise.all(creatingTag)
         })
         .then(createdTags => {
-            let createArticle = {
+            let createGif = {
                 title: data.title,
-                content: data.content,
-                author: req.decoded.id,
+                // creator: req.decoded.id,
                 tags: createdTags,
-                image: data.image
+                gif: data.gif
             }
 
-            createArticle.tags = createArticle.tags.map(e => e._id).concat(readyToPutTag)
-            Article.create(createArticle)
-            .then(newArticle => {
+            createGif.tags = createGif.tags.map(e => e._id).concat(readyToPutTag)
+            Gif.create(createGif)
+            .then(newGif => {
                 res
                     .status(200)
                     .json({
-                        msg: 'Article has been successfully created',
-                        newArticle
+                        msg: 'Gif has been successfully uploaded',
+                        newGif
                     })                
             })
         })
