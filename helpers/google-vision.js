@@ -6,6 +6,7 @@ const client = new vision.ImageAnnotatorClient({
 
 module.exports = {
     autoGenerateTags(img) {
+        console.log(img)
         return new Promise((resolve, reject) => {
             client
               .labelDetection(img)

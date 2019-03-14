@@ -1,5 +1,6 @@
 const Gif = require('../model/gif')
 const Tag = require('../model/tag')
+const {autoGenerateTags} = require('../helpers/google-vision')
 
 class Controller {
     static findAll(req, res) {
@@ -36,13 +37,14 @@ class Controller {
     }
 
     static generateTags(req, res) {
+        // console.log(req.file)
         autoGenerateTags(req.file.cloudStoragePublicUrl)
         .then(labels => {
-            res 
+            res
                 .status(200)
                 .json({
                     labels,
-                    image: req.file.cloudStoragePublicUrl
+                    gif: req.file.cloudStoragePublicUrl
                 })
         })
         .catch(err => {
