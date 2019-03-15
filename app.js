@@ -2,15 +2,15 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const cors = require('cors')
 const indexRouter = require('./routes/index');
-
+const cors = require('cors')
 const mongoose = require('mongoose')
+const app = express();
 mongoose.connect('mongodb://localhost:27017/gifr', {
     useNewUrlParser: true
 })
 
-const app = express();
+
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());

@@ -8,7 +8,7 @@ const gifSchema = new Schema({
     },
     tags: [{
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Tag'
     }],
     gif: {
         type: String,
