@@ -1,7 +1,10 @@
-var express = require('express');
-var router = express.Router();
-const gifController = require('../controller/gifController')
-/* GET home page. */
+const express = require('express');
+const router = express.Router();
+const gif = require('./gif')
+
+
+router.use('/gif', gif)
+
 
 
 module.exports = router;
