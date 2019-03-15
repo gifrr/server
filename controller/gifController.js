@@ -1,20 +1,22 @@
 const Gif = require('../model/gif')
 const Tag = require('../model/tag')
-const {
-    autoGenerateTags
-} = require('../helpers/google-vision')
+
+const { autoGenerateTags } = require('../helpers/google-vision')
 
 class Controller {
     static findAll(req, res) {
         let condition = {}
         if (req.query.search) {
             condition = {
-                title: req.query.search
+                title: new RegExp(req.query.search, 'i')
             }
         }
-
         Gif
             .find(condition)
+            .sort([
+                ['createdAt', -1]
+            ])
+            .populate('tags')
             .then(gifs => {
                 res.status(200).json(gifs)
             })
@@ -61,7 +63,6 @@ class Controller {
     }
 
     static generateTags(req, res) {
-        // console.log(req.file)
         autoGenerateTags(req.file.cloudStoragePublicUrl)
             .then(labels => {
                 res
@@ -118,9 +119,9 @@ class Controller {
                     title: data.title,
                     // creator: req.decoded.id,
                     tags: createdTags,
-                    gif: data.gif
+                    gif: data.gif,
+                    createdAt: Date.now()
                 }
-
                 createGif.tags = createGif.tags.map(e => e._id).concat(readyToPutTag)
                 Gif.create(createGif)
                     .then(newGif => {
