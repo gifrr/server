@@ -12,6 +12,9 @@ const gifSchema = new Schema({
     }],
     gif: {
         type: String,
+    },
+    createdAt: {
+        type: Date,
         required: true
     }
 });

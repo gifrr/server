@@ -1,11 +1,21 @@
 const Gif = require('../model/gif')
 const Tag = require('../model/tag')
-const {autoGenerateTags} = require('../helpers/google-vision')
+const { autoGenerateTags } = require('../helpers/google-vision')
 
 class Controller {
     static findAll(req, res) {
+        let condition = {}
+        if (req.query.search) {
+            condition = {
+                title: new RegExp(req.query.search, 'i')
+            }
+        }
         Gif
-            .find({})
+            .find(condition)
+            .sort([
+                ['createdAt', -1]
+            ])
+            .populate('tags')
             .then(gifs => {
                 res.status(200).json(gifs)
             })
@@ -37,24 +47,23 @@ class Controller {
     }
 
     static generateTags(req, res) {
-        // console.log(req.file)
         autoGenerateTags(req.file.cloudStoragePublicUrl)
-        .then(labels => {
-            res
-                .status(200)
-                .json({
-                    labels,
-                    gif: req.file.cloudStoragePublicUrl
-                })
-        })
-        .catch(err => {
-            res
-                .status(500)
-                .json({
-                    msg: `Internal server error`,
-                    err: err
-                }) 
-        })        
+            .then(labels => {
+                res
+                    .status(200)
+                    .json({
+                        labels,
+                        gif: req.file.cloudStoragePublicUrl
+                    })
+            })
+            .catch(err => {
+                res
+                    .status(500)
+                    .json({
+                        msg: `Internal server error`,
+                        err: err
+                    })
+            })
     }
 
     static create(req, res) {
@@ -70,53 +79,53 @@ class Controller {
             )
         })
         Promise.all(promises)
-        .then(tags => {
-            readyToPutTag = tags.filter(e => e !== null)
-            if (readyToPutTag.length > 0) {
-                readyToPutTag.forEach(tg => {
-                    let index = data.tags.findIndex(e => e === tg.name)
-                    data.tags.splice(index, 1)
-                })
-            }
-            readyToPutTag = readyToPutTag.map(e => e._id)
-            let creatingTag = []
-            data.tags.forEach(tag => {
-                creatingTag.push(
-                    Tag.create({
-                        name: tag
+            .then(tags => {
+                readyToPutTag = tags.filter(e => e !== null)
+                if (readyToPutTag.length > 0) {
+                    readyToPutTag.forEach(tg => {
+                        let index = data.tags.findIndex(e => e === tg.name)
+                        data.tags.splice(index, 1)
                     })
-                )
-            })
-            return Promise.all(creatingTag)
-        })
-        .then(createdTags => {
-            let createGif = {
-                title: data.title,
-                // creator: req.decoded.id,
-                tags: createdTags,
-                gif: data.gif
-            }
-
-            createGif.tags = createGif.tags.map(e => e._id).concat(readyToPutTag)
-            Gif.create(createGif)
-            .then(newGif => {
-                res
-                    .status(200)
-                    .json({
-                        msg: 'Gif has been successfully uploaded',
-                        newGif
-                    })                
-            })
-        })
-        .catch(err => {
-            console.log(err)
-            res
-                .status(500)
-                .json({
-                    msg: `internal server error`,
-                    err: err
+                }
+                readyToPutTag = readyToPutTag.map(e => e._id)
+                let creatingTag = []
+                data.tags.forEach(tag => {
+                    creatingTag.push(
+                        Tag.create({
+                            name: tag
+                        })
+                    )
                 })
-        })
+                return Promise.all(creatingTag)
+            })
+            .then(createdTags => {
+                let createGif = {
+                    title: data.title,
+                    // creator: req.decoded.id,
+                    tags: createdTags,
+                    gif: data.gif,
+                    createdAt: Date.now()
+                }
+                createGif.tags = createGif.tags.map(e => e._id).concat(readyToPutTag)
+                Gif.create(createGif)
+                    .then(newGif => {
+                        res
+                            .status(200)
+                            .json({
+                                msg: 'Gif has been successfully uploaded',
+                                newGif
+                            })
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+                res
+                    .status(500)
+                    .json({
+                        msg: `internal server error`,
+                        err: err
+                    })
+            })
     }
 }
 
