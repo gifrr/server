@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const cors = require('cors')
 const mongoose = require('mongoose')
+
 mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0-s6ej4.gcp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true })
 
 const app = express();

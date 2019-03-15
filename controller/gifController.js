@@ -1,5 +1,6 @@
 const Gif = require('../model/gif')
 const Tag = require('../model/tag')
+
 const { autoGenerateTags } = require('../helpers/google-vision')
 
 class Controller {
@@ -26,7 +27,9 @@ class Controller {
 
     static update(req, res) {
         Gif
-            .findByIdAndUpdate(req.params.id, { ...req.body })
+            .findByIdAndUpdate(req.params.id, {
+                ...req.body
+            })
             .then(updatedGif => {
                 res.status(200).json(updatedGif)
             })
@@ -35,6 +38,19 @@ class Controller {
             })
     }
 
+    static edit(req, res) {
+
+        Gif.findByIdAndUpdate(req.params.id, req.body)
+            .then(function (data) {
+                res.status(200).json(data)
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    messege: 'not fond'
+                })
+
+            })
+    }
     static delete(req, res) {
         Gif
             .findByIdAndDelete(req.params.id)
